@@ -3,55 +3,30 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgrammersBlog.Data.Concrete.EntityFramework.Contexts;
 
 namespace ProgrammersBlog.Data.Migrations
 {
     [DbContext(typeof(ProgrammersBlogContext))]
-    partial class ProgrammersBlogContextModelSnapshot : ModelSnapshot
+    [Migration("20201024104954_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ProgrammersBlog.Data.Concrete.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            RoleId = 2
-                        });
-                });
+                .HasAnnotation("ProductVersion", "5.0.0-preview.7.20365.15");
 
             modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -137,7 +112,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CreatedByName")
                         .IsRequired()
@@ -183,12 +158,12 @@ namespace ProgrammersBlog.Data.Migrations
                         {
                             Id = 1,
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(3605),
+                            CreatedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(1759),
                             Description = "C# Programlama Dili ile İlgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(4134),
+                            ModifiedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(2812),
                             Name = "C#",
                             Note = "C# Blog Kategorisi"
                         },
@@ -196,12 +171,12 @@ namespace ProgrammersBlog.Data.Migrations
                         {
                             Id = 2,
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(4643),
+                            CreatedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(3837),
                             Description = "C++ Programlama Dili ile İlgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(4644),
+                            ModifiedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(3839),
                             Name = "C++",
                             Note = "C++ Blog Kategorisi"
                         },
@@ -209,12 +184,12 @@ namespace ProgrammersBlog.Data.Migrations
                         {
                             Id = 3,
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(4649),
+                            CreatedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(3843),
                             Description = "JavaScript Programlama Dili ile İlgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 6, 14, 22, 59, 8, 847, DateTimeKind.Local).AddTicks(4650),
+                            ModifiedDate = new DateTime(2020, 10, 24, 13, 49, 54, 21, DateTimeKind.Local).AddTicks(3844),
                             Name = "JavaScript",
                             Note = "JavaScript Blog Kategorisi"
                         });
@@ -225,7 +200,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
@@ -273,7 +248,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -300,14 +275,14 @@ namespace ProgrammersBlog.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "da234cdd-6a95-42d9-9b77-9842f9502a24",
+                            ConcurrencyStamp = "b06d8ccb-1fa6-441d-b274-eca99c1f75c0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "9587f58d-77c8-4061-90ee-e8af861af6f3",
+                            ConcurrencyStamp = "367e91a7-4ed8-4a89-9602-b0655bb51915",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -318,7 +293,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -341,7 +316,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -412,17 +387,17 @@ namespace ProgrammersBlog.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6b8ff583-61ef-4262-b470-ad96e6c9ad8b",
+                            ConcurrencyStamp = "0ec75249-5805-4a0b-9211-bc7b3a27a9b1",
                             Email = "adminuser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINUSER@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKm8CNV0R5PD63wAeFkAoqK7fbJYFHXRpNbyzp2bVXTzZRzd7yRpATzlTSmW8w05uw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB6B65HnphVufshl2qRAOMWSXBowK4fWLsLgbzTdXpodp+PfBqTMExUhSZpmbHm+bw==",
                             PhoneNumber = "+905555555555",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "8ea3e0b6-94d8-4003-b5f8-7867488a5818",
+                            SecurityStamp = "c83b3047-1c4b-4087-9849-83750a1cab36",
                             TwoFactorEnabled = false,
                             UserName = "adminuser"
                         },
@@ -430,17 +405,17 @@ namespace ProgrammersBlog.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7379eebd-3379-42c6-8f35-42a9c586dfae",
+                            ConcurrencyStamp = "25250763-5f93-463c-a77f-d19a495430ad",
                             Email = "editoruser@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITORUSER@GMAIL.COM",
                             NormalizedUserName = "EDITORUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIyuYi+KJB4gwymN3E5IrPBLdd7OZpOiSvCJD9eCWdJHblhfo9pWcOkSBnHxt7L/bg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKEZrf3I94p9xKvTPBS99zNzz/JDl1xwew3YceGY7I/RmiQHonz89BkBGcn+EwR6NA==",
                             PhoneNumber = "+905555555555",
                             PhoneNumberConfirmed = true,
                             Picture = "defaultUser.png",
-                            SecurityStamp = "8eb07f44-f66b-4638-b69b-c13cad72e042",
+                            SecurityStamp = "5eab6c5c-554f-4272-a311-e3d63707edf7",
                             TwoFactorEnabled = false,
                             UserName = "editoruser"
                         });
@@ -451,7 +426,7 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -492,6 +467,33 @@ namespace ProgrammersBlog.Data.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        });
+                });
+
             modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.UserToken", b =>
                 {
                     b.Property<int>("UserId")
@@ -513,21 +515,6 @@ namespace ProgrammersBlog.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Data.Concrete.UserRole", b =>
-                {
-                    b.HasOne("ProgrammersBlog.Entities.Concrete.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ProgrammersBlog.Entities.Concrete.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
                 {
                     b.HasOne("ProgrammersBlog.Entities.Concrete.Category", "Category")
@@ -541,10 +528,6 @@ namespace ProgrammersBlog.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Comment", b =>
@@ -554,8 +537,6 @@ namespace ProgrammersBlog.Data.Migrations
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Article");
                 });
 
             modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.RoleClaim", b =>
@@ -585,8 +566,14 @@ namespace ProgrammersBlog.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.UserToken", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.UserRole", b =>
                 {
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProgrammersBlog.Entities.Concrete.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -594,19 +581,13 @@ namespace ProgrammersBlog.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.UserToken", b =>
                 {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Category", b =>
-                {
-                    b.Navigation("Articles");
-                });
-
-            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.User", b =>
-                {
-                    b.Navigation("Articles");
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
