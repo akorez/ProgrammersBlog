@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProgrammersBlog.Services</name>
+    </assembly>
+    <members>
+        <member name="M:ProgrammersBlog.Services.Abstract.ICategoryService.GetCategoryUpdateDtoAsync(System.Int32)">
+            <summary>
+            Returns the CategoryUpdateDto representation of the category for the given Id parameter
+            </summary>
+            <param name="categoryId">An integer Id value greater than 0</param>
+            <returns>With an asynchronous operation, it returns the result of the operation as a Task in DataResult type.</returns>
+        </member>
+        <member name="M:ProgrammersBlog.Services.Abstract.ICategoryService.AddAsync(ProgrammersBlog.Entities.Dtos.CategoryAddDto,System.String)">
+            <summary>
+            Adds a new category with the information of the given CategoryAddDto and CreatedByName parameters.
+            </summary>
+            <param name="categoryAddDto">Category information to be added in categoryAddDto type</param>
+            <param name="createdByName">Username in string type</param>
+            <returns>With an asynchronous operation, the result of the addition operation is returned as Task in DataResult type.</returns>
+        </member>
+        <member name="M:ProgrammersBlog.Services.Concrete.CategoryManager.AddAsync(ProgrammersBlog.Entities.Dtos.CategoryAddDto,System.String)">
+            <summary>
+            Adds a new category with the information of the given CategoryAddDto and CreatedByName parameters.
+            </summary>
+            <param name="categoryAddDto">Category information to be added in categoryAddDto type</param>
+            <param name="createdByName">Username in string type</param>
+            <returns>With an asynchronous operation, the result of the addition operation is returned as Task in DataResult type.</returns>
+        </member>
+        <member name="M:ProgrammersBlog.Services.Concrete.CategoryManager.GetCategoryUpdateDtoAsync(System.Int32)">
+            <summary>
+            Returns the CategoryUpdateDto representation of the category for the given Id parameter
+            </summary>
+            <param name="categoryId">An integer Id value greater than 0</param>
+            <returns>With an asynchronous operation, it returns the result of the operation as a Task in DataResult type.</returns>
+        </member>
+    </members>
+</doc>
