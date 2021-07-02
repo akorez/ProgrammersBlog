@@ -8,9 +8,8 @@
     <meta name="author" content="" />
     <title>@ViewBag.Title - Admin Paneli | Programmers Blog</title>
     @await Html.PartialAsync("_LayoutCssPartial")
-    @await RenderSectionAsync("Styles", false);
-    <link href="~/AdminLTE/css/site.css" rel="stylesheet" />
-
+    @await RenderSectionAsync("Styles",false);
+    <link href="~/AdminLTE/css/site.css" rel="stylesheet"/>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -29,14 +28,13 @@
         @await Component.InvokeAsync("UserMenu")
     </nav>
     <div id="layoutSidenav">
-        @*@await Html.PartialAsync("_LayoutSideBarNavPartial")*@
         @await Component.InvokeAsync("AdminMenu")
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
                     @if (TempData["SuccessMessage"] != null)
                     {
-                        <div class="alert alert-success mt-2">
+                        <div class="alert alert-success mt-2" role="alert">
                             @TempData["SuccessMessage"]
                         </div>
                     }
@@ -46,7 +44,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Tüm Hakları Saklıdır &copy; ProgrammersBlog 2020</div>
+                        <div class="text-muted">Tüm Hakları Saklıdır &copy; ProgrammersBlog 2021</div>
                         <div>
                             <a href="#">Gizlilik Politikası</a>
                             &middot;
@@ -57,6 +55,6 @@
         </div>
     </div>
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false);
+@await RenderSectionAsync("Scripts",false);
 </body>
 </html>

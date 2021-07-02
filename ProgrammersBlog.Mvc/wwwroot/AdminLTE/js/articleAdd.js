@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
 
-    //Trumbowgy starts
+    // Trumbowyg
 
     $('#text-editor').trumbowyg({
+        lang: 'tr',
         btns: [
             ['viewHTML'],
             ['undo', 'redo'], // Only supported in Blink browsers
@@ -20,13 +21,23 @@
             ['emoji'],
             ['fontfamily'],
             ['fontsize']
-
-        ]
+        ],
+        plugins: {
+            colors: {
+                foreColorList: [
+                    'ff0000', '00ff00', '0000ff','54e346'
+                ],
+                backColorList: [
+                    '000', '333', '555'
+                ],
+                displayAsList: false
+            }
+        }
     });
 
-    //Trumbowgy ends
+    // Trumbowyg
 
-    //Select2
+    // Select2
 
     $('#categoryList').select2({
         theme: 'bootstrap4',
@@ -34,8 +45,10 @@
         allowClear: true
     });
 
+    // Select2
 
-    //JQuery UI DatePicker
+
+    // jQuery UI - DatePicker
 
     $(function () {
         $("#datepicker").datepicker({
@@ -58,9 +71,12 @@
             yearSuffix: "",
             duration: 1000,
             showAnim: "drop",
-            showOptions: {direction:"down"},
+            showOptions:{direction:"down"},
             minDate: -3,
-            maxDate: 3
+            maxDate:+3
         });
     });
+
+
+    // jQuery UI - DatePicker
 });

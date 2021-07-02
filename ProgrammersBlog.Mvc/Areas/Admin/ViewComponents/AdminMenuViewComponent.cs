@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Mvc.Areas.Admin.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.ViewComponents
 {
@@ -19,15 +19,22 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.ViewComponents
             _userManager = userManager;
         }
 
-        public ViewViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var user = _userManager.GetUserAsync(HttpContext.User).Result;
-            var roles = _userManager.GetRolesAsync(user).Result;
-
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var roles = await _userManager.GetRolesAsync(user);
+            if (user == null)
+            {
+                return Content("Kullanıcı bulunamadı.");
+            }
+            if (roles == null)
+            {
+                return Content("Roller bulunamadı.");
+            }
             return View(new UserWithRolesViewModel
             {
                 User = user,
-                Roller = roles
+                Roles = roles
             });
         }
     }

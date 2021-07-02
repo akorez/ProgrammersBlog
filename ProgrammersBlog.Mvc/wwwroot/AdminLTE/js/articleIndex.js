@@ -1,9 +1,8 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
-    /* Data Table starts here */
+    /* DataTables start here. */
 
-    const dataTable = $('#articlesTable').DataTable({
+   const dataTable = $('#articlesTable').DataTable({
         dom:
             "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -15,10 +14,7 @@ $(document).ready(function () {
                     id: "btnAdd",
                 },
                 className: 'btn btn-success',
-                action: function (e, dt, node, config) {
-                    let url = window.location.href;
-                    url = url.replace("/Index", "");
-                    window.open(`${url}/Add`, "_self");
+                action: function (e, dt, node, config) {                    
                 }
             },
             {
@@ -37,37 +33,48 @@ $(document).ready(function () {
                             const articleResult = jQuery.parseJSON(data);
                             dataTable.clear();
                             console.log(articleResult);
-                            if (articleResult.ResultStatus === 0) {
-                                $.each(articleResult.Data.Articles.$values, function (index, article) {
-                                    const newArticle = getJsonNetObject(article, articleResult.Data.Articles.$values);
-                                    console.log(newArticle);
-                                    const newTableRow = dataTable.row.add([
-                                        newArticle.Id,
-                                        newArticle.Category.Name,
-                                        newArticle.Title,
-                                        `<img src="/img/${newArticle.Thumbnail}" alt="${newArticle.Title}" class="my-image-table" />`,
-                                        `${convertToShortDate(newArticle.Date)}`,
-                                        newArticle.ViewCount,
-                                        newArticle.CommentCount,
-                                        `${newArticle.IsActive ? "Evet" : "Hayır"}`,
-                                        `${newArticle.IsDeleted ? "Evet" : "Hayır"}`,
-                                        `${convertToShortDate(newArticle.CreatedDate)}`,
-                                        newArticle.CreatedByName,
-                                        `${convertToShortDate(newArticle.ModifiedDate)}`,
-                                        newArticle.ModifiedByName,
-                                        `
-                                <button class="btn btn-primary btn-sm btn-update" data-id="${newArticle.Id}"><span class="fas fa-edit"></span></button>
+                            if (articleResult.Data.ResultStatus === 0) {
+                                let categoriesArray = [];
+                                $.each(articleResult.Data.Articles.$values,
+                                    function (index, article) {
+                                        const newArticle = getJsonNetObject(article, articleResult.Data.Articles.$values);
+                                        let newCategory = getJsonNetObject(newArticle.Category, newArticle);
+                                        if (newCategory !== null) {
+                                            categoriesArray.push(newCategory);
+                                        }
+                                        if (newCategory === null) {
+                                            newCategory = categoriesArray.find((category) => {
+                                                return category.$id === newArticle.Category.$ref;
+                                            });
+                                        }
+                                        console.log(newArticle);
+                                        console.log(newCategory);
+                                        const newTableRow = dataTable.row.add([
+                                            newArticle.Id,
+                                            newCategory.Name,
+                                            newArticle.Title,
+                                            `<img src="/img/${newArticle.Thumbnail}" alt="${newArticle.Title}" class="my-image-table" />`,
+                                            `${convertToShortDate(newArticle.Date)}`,
+                                            newArticle.ViewCount,
+                                            newArticle.CommentCount,
+                                            `${newArticle.IsActive ? "Evet" : "Hayır"}`,
+                                            `${newArticle.IsDeleted ? "Evet" : "Hayır"}`,
+                                            `${convertToShortDate(newArticle.CreatedDate)}`,
+                                            newArticle.CreatedByName,
+                                            `${convertToShortDate(newArticle.ModifiedDate)}`,
+                                            newArticle.ModifiedByName,
+                                            `
+                                <a class="btn btn-primary btn-sm btn-update" href="/Admin/Article/Update?articleId=${newArticle.Id}"><span class="fas fa-edit"></span></a>
                                 <button class="btn btn-danger btn-sm btn-delete" data-id="${newArticle.Id}"><span class="fas fa-minus-circle"></span></button>
                                             `
-                                    ]).node();
-                                    const jqueryTableRow = $(newTableRow);
-                                    jqueryTableRow.attr('name', `${newArticle.Id}`);
-                                });
+                                        ]).node();
+                                        const jqueryTableRow = $(newTableRow);
+                                        jqueryTableRow.attr('name', `${newArticle.Id}`);
+                                    });
                                 dataTable.draw();
                                 $('.spinner-border').hide();
                                 $('#articlesTable').fadeIn(1400);
-                            }
-                            else {
+                            } else {
                                 toastr.error(`${articleResult.Data.Message}`, 'İşlem Başarısız!');
                             }
                         },
@@ -75,7 +82,7 @@ $(document).ready(function () {
                             console.log(err);
                             $('.spinner-border').hide();
                             $('#articlesTable').fadeIn(1000);
-                            toastr.err(`${err.responseText}`, 'Hata!');
+                            toastr.error(`${err.responseText}`, 'Hata!');
                         }
                     });
                 }
@@ -114,19 +121,20 @@ $(document).ready(function () {
         }
     });
 
-        /*DataTable ends here */
-   
+    /* DataTables end here */
 
-        /* Ajax POST / Deleting User starts from here */
+    /* Ajax POST / Deleting a User starts from here */
 
-        $(document).on('click', '.btn-delete', function (event) {
+    $(document).on('click',
+        '.btn-delete',
+        function (event) {
             event.preventDefault();
-            const id = $(this).attr('data-id')
+            const id = $(this).attr('data-id');
             const tableRow = $(`[name="${id}"]`);
             const articleTitle = tableRow.find('td:eq(2)').text();
             Swal.fire({
                 title: 'Silmek istediğinize emin misiniz?',
-                text: `${articleTitle} adlı makale silinecektir!`,
+                text: `${articleTitle} başlıklı makale silinicektir!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -150,25 +158,21 @@ $(document).ready(function () {
                                 );
 
                                 dataTable.row(tableRow).remove().draw();
-                            }
-                            else {
+                            } else {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Başarısız İşlem!',
-                                    text: `${articleResult.Message}`
-                                })
+                                    text: `${articleResult.Message}`,
+                                });
                             }
                         },
                         error: function (err) {
                             console.log(err);
-                            toastr.error(`${err.responseText}`, 'Hata!');
+                            toastr.error(`${err.responseText}`, "Hata!");
                         }
                     });
-
                 }
             });
         });
 
-        /* Ajax POST / Deleting User ends from here */
- });
-
+});

@@ -18,12 +18,11 @@ namespace ProgrammersBlog.Data.Concrete.EntityFramework.Contexts
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer(
-        //        @"Server=(localdb)\MSSQLLocalDB;Database=ProgrammersBlog;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;");
+        //        @"Server=(localdb)\ProjectsV13;Database=ProgrammersBlog;Trusted_Connection=True;Connect Timeout=30;MultipleActiveResultSets=True;");
         //}
-
-        public ProgrammersBlogContext(DbContextOptions<ProgrammersBlogContext> options): base(options)
+        public ProgrammersBlogContext(DbContextOptions<ProgrammersBlogContext> options):base(options)
         {
-
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

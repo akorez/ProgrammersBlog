@@ -1,6 +1,5 @@
 ﻿@model ProgrammersBlog.Mvc.Areas.Admin.Models.DashboardViewModel
-
-@{ 
+@{
     Layout = "_Layout";
     ViewBag.Title = "Yönetim Paneli";
 }
@@ -76,52 +75,53 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="articlesTable" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Kategori</th>
-                        <th>Başlık</th>
-                        <th>Küçük Resim</th>
-                        <th>Tarih</th>
-                        <th>Okunma Sayısı</th>
-                        <th>Yorum Sayısı</th>
-                        <th>Aktif Mi?</th>
-                        <th>Silinmiş Mi?</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori</th>
+                    <th>Başlık</th>
+                    <th>Küçük Resim</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>Yorum Sayısı</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                </tr>
                 </thead>
                 <tfoot>
-                    <tr>
-                        <th>#</th>
-                        <th>Kategori</th>
-                        <th>Başlık</th>
-                        <th>Küçük Resim</th>
-                        <th>Tarih</th>
-                        <th>Okunma Sayısı</th>
-                        <th>Yorum Sayısı</th>
-                        <th>Aktif Mi?</th>
-                        <th>Silinmiş Mi?</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori</th>
+                    <th>Başlık</th>
+                    <th>Küçük Resim</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>Yorum Sayısı</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                </tr>
                 </tfoot>
                 <tbody>
-                    @foreach (var article in Model.Articles.Articles)
-                    {
-                        <tr>
-                            <td>@article.Id</td>
-                            <td>@article.Category.Name</td>
-                            <td>@article.Title</td>
-                            <td><img src="~/img//@article.Thumbnail" class="my-image-table" /></td>
-                            <td>@article.Date.ToShortDateString()</td>
-                            <td>@article.ViewCount</td>
-                            <td>@article.CommentCount</td>
-                            <td>@(article.IsActive ? "Evet" : "Hayır")</td>
-                            <td>@(article.IsDeleted ? "Evet" : "Hayır")</td>
-                        </tr>
-                    }
+                @foreach (var article in Model.Articles.Articles)
+                {
+                    <tr>
+                        <td>@article.Id</td>
+                        <td>@article.Category.Name</td>
+                        <td>@article.Title</td>
+                        <td><img src="~/img/@article.Thumbnail" class="my-image-table" /></td>
+                        <td>@article.Date.ToShortDateString()</td>
+                        <td>@article.ViewCount</td>
+                        <td>@article.CommentCount</td>
+                        <td>@(article.IsActive ? "Evet" : "Hayır")</td>
+                        <td>@(article.IsDeleted ? "Evet" : "Hayır")</td>
+                    </tr>
+                }
+                    
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-@section Scripts {
-<script src="~/AdminLTE/js/homeIndex.js" type="application/ecmascript"></script>
-
+@section Scripts
+{
+    <script src="~/AdminLTE/js/homeIndex.js" type="application/ecmascript"></script>
 }

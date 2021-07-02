@@ -14,7 +14,6 @@ using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;
 namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Editor")]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -29,29 +28,28 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             _commentService = commentService;
             _userManager = userManager;
         }
-
+        [Authorize(Roles = "SuperAdmin,AdminArea.Home.Read")]
         public async Task<IActionResult> Index()
         {
             var categoriesCountResult = await _categoryService.CountByNonDeletedAsync();
             var articlesCountResult = await _articleService.CountByNonDeletedAsync();
             var commentsCountResult = await _commentService.CountByNonDeletedAsync();
-            var userCount = await _userManager.Users.CountAsync();
+            var usersCount = await _userManager.Users.CountAsync();
             var articlesResult = await _articleService.GetAllAsync();
-
-            if (categoriesCountResult.ResultStatus == ResultStatus.Success && articlesCountResult.ResultStatus == ResultStatus.Success
-                && commentsCountResult.ResultStatus == ResultStatus.Success && userCount > -1 && articlesResult.ResultStatus == ResultStatus.Success)
+            if (categoriesCountResult.ResultStatus==ResultStatus.Success&&articlesCountResult.ResultStatus==ResultStatus.Success&&commentsCountResult.ResultStatus==ResultStatus.Success&&usersCount>-1&&articlesResult.ResultStatus==ResultStatus.Success)
             {
                 return View(new DashboardViewModel
                 {
                     CategoriesCount = categoriesCountResult.Data,
                     ArticlesCount = articlesCountResult.Data,
                     CommentsCount = commentsCountResult.Data,
-                    UsersCount = userCount,
+                    UsersCount = usersCount,
                     Articles = articlesResult.Data
                 });
             }
 
             return NotFound();
+
         }
     }
 }

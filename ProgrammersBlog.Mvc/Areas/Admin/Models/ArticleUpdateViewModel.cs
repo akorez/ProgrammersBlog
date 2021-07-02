@@ -9,7 +9,7 @@ using ProgrammersBlog.Entities.Concrete;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.Models
 {
-    public class ArticleAddViewModel
+    public class ArticleUpdateViewModel
     {
         [Required]
         public int Id { get; set; }
@@ -22,6 +22,8 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Models
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir.")]
         [MinLength(20, ErrorMessage = "{0} alanı {1} karakterden küçük olmamalıdır.")]
         public string Content { get; set; }
+        [DisplayName("Küçük Resim")]
+        public string Thumbnail { get; set; }
         [DisplayName("Küçük Resim Ekle")]
         public IFormFile ThumbnailFile { get; set; }
         [DisplayName("Tarih")]
@@ -49,7 +51,8 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Models
         [DisplayName("Aktif Mi?")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir.")]
         public bool IsActive { get; set; }
+        [Required]
+        public int UserId { get; set; }
         public IList<Category> Categories { get; set; }
-
     }
 }

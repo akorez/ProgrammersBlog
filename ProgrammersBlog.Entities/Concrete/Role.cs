@@ -10,6 +10,6 @@ namespace ProgrammersBlog.Entities.Concrete
 {
     public class Role:IdentityRole<int>
     {
-
+       
     }
 }

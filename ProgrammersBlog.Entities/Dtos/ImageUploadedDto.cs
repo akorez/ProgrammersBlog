@@ -14,7 +14,5 @@ namespace ProgrammersBlog.Entities.Dtos
         public string Path { get; set; }
         public string FolderName { get; set; }
         public long Size { get; set; }
-
-
     }
 }
