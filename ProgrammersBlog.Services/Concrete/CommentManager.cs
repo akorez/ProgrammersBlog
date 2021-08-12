@@ -127,7 +127,7 @@ namespace ProgrammersBlog.Services.Concrete
             }
             var comment = IMapper.Map<Comment>(commentAddDto);
             var addedComment = await UnitOfWork.Comments.AddAsync(comment);
-            article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
+            article.CommentCount += 1;
             await UnitOfWork.Articles.UpdateAsync(article);
             await UnitOfWork.SaveAsync();
             return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Add(commentAddDto.CreatedByName), new CommentDto
@@ -161,7 +161,7 @@ namespace ProgrammersBlog.Services.Concrete
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
                 var deletedComment = await UnitOfWork.Comments.UpdateAsync(comment);
-                article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
+                article.CommentCount -= 1;
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Delete(deletedComment.CreatedByName), new CommentDto
@@ -180,6 +180,12 @@ namespace ProgrammersBlog.Services.Concrete
             var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId,c=>c.Article);
             if (comment != null)
             {
+                if (comment.IsDeleted)
+                {
+                    await UnitOfWork.Comments.DeleteAsync(comment);
+                    await UnitOfWork.SaveAsync();
+                    return new Result(ResultStatus.Success, Messages.Comment.HardDelete(comment.CreatedByName));
+                }
                 var article = comment.Article;
                 await UnitOfWork.Comments.DeleteAsync(comment);
                 article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
@@ -221,10 +227,13 @@ namespace ProgrammersBlog.Services.Concrete
             var comment = await UnitOfWork.Comments.GetAsync(c=>c.Id == commentId,c=>c.Article);
             if (comment !=null)
             {
+                var article = comment.Article;
                 comment.IsActive = true;
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
                 var updatedComment = await UnitOfWork.Comments.UpdateAsync(comment);
+                article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
+                await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Approve(commentId), new CommentDto
                 {
@@ -246,7 +255,7 @@ namespace ProgrammersBlog.Services.Concrete
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
                 var deletedComment = await UnitOfWork.Comments.UpdateAsync(comment);
-                article.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.ArticleId == article.Id && !c.IsDeleted);
+                article.CommentCount += 1;
                 await UnitOfWork.Articles.UpdateAsync(article);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.UndoDelete(deletedComment.CreatedByName), new CommentDto

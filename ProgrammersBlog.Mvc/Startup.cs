@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using ProgrammersBlog.Mvc.AutoMapper.Profiles;
 using ProgrammersBlog.Mvc.Helpers.Abstract;
 using ProgrammersBlog.Mvc.Helpers.Concrete;
+using ProgrammersBlog.Entities.Concrete;
+using ProgrammersBlog.Mvc.Filters;
 
 namespace ProgrammersBlog.Mvc
 {
@@ -24,9 +26,13 @@ namespace ProgrammersBlog.Mvc
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
+            services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
+            services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
             services.AddControllersWithViews(options=> 
             {
-                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir");          
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boþ geçilmemelidir");
+                options.Filters.Add<MvcExceptionFilter>();
             
             
             }).AddRazorRuntimeCompilation().AddJsonOptions(opt =>

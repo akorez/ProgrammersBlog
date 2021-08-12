@@ -17,17 +17,16 @@
     <!-- Custom styles for this template -->
     <link href="~/BlogHome/css/blog-home.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    <link href="~/BlogHome/css/site.css" rel="stylesheet">
+    <link href="~/BlogHome/css/contact-page.css" rel="stylesheet">
 </head>
 
 <body>
 
     <!-- Navigation -->
-<partial name="_MainMenuPartial" />
+    <partial name="_MainMenuPartial" />
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
 
@@ -43,18 +42,18 @@
     </div>
     <!-- /.container -->
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <!--<footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Tüm Hakları Saklıdır &copy; ProgrammersBlog 2021</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-
+        </div>-->
+    <!-- /.container -->
+    <!--</footer>-->
     <!-- Bootstrap core JavaScript -->
     <script src="~/BlogHome/vendor/jquery/jquery.min.js"></script>
     <script src="~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 
 </html>
